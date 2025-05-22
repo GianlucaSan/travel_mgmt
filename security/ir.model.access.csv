@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_mgmt,access.travel.mgmt,model_travel_mgmt,,1,1,1,1
+access_travel_mgmt_line,access.travel.mgmt.line,model_travel_mgmt_line,,1,1,1,1
