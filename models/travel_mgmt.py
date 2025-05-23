@@ -57,10 +57,10 @@ class TravelMgmt(models.Model):
                 expense_obj.create({
                     "name": rec.name,
                     "employee_id": rec.employee_id.id,
-                    "company_id": rec.company_id.id,
-                    "payment_mode": rec.paid_by,
+                    "payment_mode": "company_account" if rec.paid_by == "company" else "own_account",
+                    
                     "date": line.date,
-                    "amount_total": line.price_unit,
+                    "total_amount_currency": line.price_unit,
                     "quantity": line.quantity,
                     "product_id": line.product_id.id,
                     "currency_id": rec.currency_id.id,  # Imposta la valuta
