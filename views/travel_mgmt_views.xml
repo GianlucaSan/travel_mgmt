@@ -20,6 +20,7 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar"/>
+                    <button name="action_create_expenses" type="object" string="Crea Spese" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <group>
@@ -61,4 +62,3 @@
     <menuitem id="menu_travel_root" name="Travel Management" sequence="10"/>
     <menuitem id="menu_travel_mgmt" name="Viaggi" parent="menu_travel_root" action="action_travel_mgmt"/>
 </odoo>
-

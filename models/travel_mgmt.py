@@ -48,26 +48,24 @@ class TravelMgmt(models.Model):
             raise exceptions.UserError(
                 "Non puoi modificare lo stato dopo che le spese sono state create."
             )
-        return super(TravelMgmt, self).write(vals)
+        return super().write(vals)
 
     def action_create_expenses(self):
+        expense_obj = self.env["hr.expense"]
         for rec in self:
             for line in rec.expense_lines:
-                # Crea la nota spese e assegna il campo currency_id
-                self.env["hr.expense"].create(
-                    {
-                        "name": rec.name,
-                        "employee_id": rec.employee_id.id,
-                        "company_id": rec.company_id.id,
-                        "payment_mode": rec.paid_by,
-                        "date": line.date,
-                        "unit_amount": line.price_unit,
-                        "quantity": line.quantity,
-                        "product_id": line.product_id.id,
-                        "currency_id": rec.currency_id.id,  # Imposta la valuta
-                    }
-                )
-            # Imposta lo stato del viaggio come "Spese Create"
+                expense_obj.create({
+                    "name": rec.name,
+                    "employee_id": rec.employee_id.id,
+                    "company_id": rec.company_id.id,
+                    "payment_mode": rec.paid_by,
+                    "date": line.date,
+                    "amount_total": line.price_unit,
+                    "quantity": line.quantity,
+                    "product_id": line.product_id.id,
+                    "currency_id": rec.currency_id.id,  # Imposta la valuta
+                })
+            # Aggiorna lo stato del viaggio a "Spese Create"
             rec.state = "expenses_created"
 
         return True
